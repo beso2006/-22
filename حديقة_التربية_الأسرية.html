@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌳 حديقة التربية الأسرية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#FFF6E0;
+  --sky2:#FFEAC2;
+  --grass1:#8FE388;
+  --grass2:#4FAF52;
+  --grass-dark:#2F8A3C;
+  --pink:#FF6FA5;
+  --pink-dark:#E04E85;
+  --yellow:#FFCB3B;
+  --yellow-dark:#F2A900;
+  --blue:#5FC2F0;
+  --blue-dark:#2E9BD6;
+  --purple:#A78BFA;
+  --purple-dark:#7C5CE0;
+  --orange:#FF9A52;
+  --orange-dark:#E5761E;
+  --red:#FF5C5C;
+  --red-dark:#C92E2E;
+  --cream:#FFFBF2;
+  --ink:#2E2440;
+  --ink-soft:#5B5270;
+  --white:#ffffff;
+  --shadow: 0 10px 25px rgba(46,36,64,0.15);
+  --shadow-lg: 0 18px 40px rgba(46,36,64,0.22);
+  --r-card: 28px;
+  --r-pill: 999px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'Cairo',sans-serif;
+  background: linear-gradient(180deg, var(--sky) 0%, var(--sky2) 38%, #DFF4C8 70%, #BCE89A 100%);
+  color:var(--ink);
+  overflow-x:hidden;
+  min-height:100vh;
+}
+h1,h2,h3,h4,.display{font-family:'Baloo 2',sans-serif;}
+
+/* ===== Background scenery ===== */
+.scenery{
+  position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+}
+.cloud{position:absolute; opacity:0.9; animation:drift linear infinite;}
+@keyframes drift{
+  from{transform:translateX(-120px);}
+  to{transform:translateX(calc(100vw + 120px));}
+}
+.sun{
+  position:absolute; top:30px; left:40px; width:90px; height:90px;
+  background: radial-gradient(circle, #FFE17A 0%, var(--yellow) 60%, var(--yellow-dark) 100%);
+  border-radius:50%;
+  box-shadow: 0 0 60px 20px rgba(255,203,59,0.45);
+  animation: pulseSun 4s ease-in-out infinite;
+}
+@keyframes pulseSun{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.06);}
+}
+.ground-grass{
+  position:fixed; bottom:0; left:0; width:100%; z-index:1; pointer-events:none;
+}
+
+/* ===== Top bar / progress ===== */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  background: rgba(255,251,242,0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 4px dashed var(--grass2);
+  padding:10px 18px;
+  display:flex; align-items:center; gap:14px;
+  flex-wrap:wrap;
+}
+.topbar .logo{
+  font-size:1.3rem; font-weight:800; color:var(--grass-dark);
+  display:flex; align-items:center; gap:6px; white-space:nowrap;
+}
+.progress-wrap{
+  flex:1; min-width:160px;
+  display:flex; align-items:center; gap:10px;
+}
+.progress-track{
+  flex:1; height:22px; background:#E9E2D0; border-radius:var(--r-pill);
+  border:3px solid var(--ink);
+  overflow:hidden; position:relative;
+}
+.progress-fill{
+  height:100%; width:0%;
+  background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink));
+  border-radius:var(--r-pill);
+  transition: width .6s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.progress-fill::after{
+  content:"🌟"; position:absolute; left:-2px; top:50%; transform:translate(-30%,-50%);
+  font-size:1rem;
+}
+.progress-label{
+  font-weight:700; font-size:.85rem; color:var(--ink-soft); white-space:nowrap;
+}
+.stars-counter{
+  background:var(--white); border:3px solid var(--ink); border-radius:var(--r-pill);
+  padding:5px 14px; font-weight:800; font-size:.95rem; display:flex; align-items:center; gap:6px;
+  box-shadow: var(--shadow);
+  white-space:nowrap;
+}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative; z-index:2;
+  text-align:center; padding:60px 20px 90px;
+}
+.hero h1{
+  font-size:clamp(2rem, 6vw, 3.6rem);
+  color:var(--grass-dark);
+  text-shadow: 3px 3px 0 #fff, 5px 5px 0 rgba(47,138,60,0.25);
+  margin:0 0 10px;
+  font-weight:800;
+}
+.hero p{
+  font-size:1.15rem; color:var(--ink-soft); max-width:640px; margin:0 auto 26px;
+  font-weight:600;
+}
+.hero .balloon-row{
+  display:flex; justify-content:center; gap:18px; margin-top:10px; flex-wrap:wrap;
+}
+.mini-balloon{
+  width:64px; height:78px; border-radius:50% 50% 50% 50%/55% 55% 45% 45%;
+  display:flex; align-items:center; justify-content:center; font-size:1.6rem;
+  box-shadow: var(--shadow); animation: bob 3s ease-in-out infinite;
+  position:relative;
+}
+.mini-balloon::after{
+  content:""; position:absolute; bottom:-22px; left:50%; width:2px; height:22px; background:var(--ink-soft);
+}
+@keyframes bob{
+  0%,100%{transform:translateY(0) rotate(-2deg);}
+  50%{transform:translateY(-14px) rotate(2deg);}
+}
+
+/* ===== Sections (fields in the garden) ===== */
+.field{
+  position:relative; z-index:2;
+  max-width:1100px; margin:0 auto; padding:10px 20px 60px;
+}
+.field-header{
+  display:flex; align-items:center; gap:14px; margin-bottom:26px; flex-wrap:wrap;
+}
+.field-icon{
+  width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:1.7rem; box-shadow:var(--shadow); border:4px solid var(--white);
+  flex-shrink:0;
+}
+.field-title{
+  font-size:clamp(1.3rem,3.4vw,1.8rem); font-weight:800; color:var(--ink);
+}
+.field-sub{
+  font-size:.95rem; color:var(--ink-soft); font-weight:600; margin-top:2px;
+}
+
+/* card grid */
+.grid{
+  display:grid; gap:20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+}
+
+/* Floating card (balloon/block) */
+.card{
+  background:var(--white);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow);
+  border:3px solid transparent;
+  padding:20px 20px 18px;
+  cursor:pointer;
+  position:relative;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease, border-color .3s ease;
+  animation: floaty 5s ease-in-out infinite;
+  outline-offset:3px;
+}
+.card:nth-child(odd){animation-duration:6s;}
+.card:nth-child(even){animation-duration:5.4s; animation-delay:.4s;}
+@keyframes floaty{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+.card:hover, .card:focus-visible{
+  transform: translateY(-14px) scale(1.03) rotate(-0.5deg);
+  box-shadow: var(--shadow-lg);
+  animation-play-state: paused;
+}
+.card.done{
+  border-color: var(--grass2);
+}
+.card.done .card-check{
+  opacity:1; transform:scale(1);
+}
+.card-emoji{
+  font-size:2rem; display:block; margin-bottom:8px;
+}
+.card-title{
+  font-weight:800; font-size:1.05rem; margin:0 0 6px; color:var(--ink);
+}
+.card-teaser{
+  font-size:.88rem; color:var(--ink-soft); font-weight:600; margin:0;
+}
+.card-check{
+  position:absolute; top:14px; left:14px; width:26px; height:26px; border-radius:50%;
+  background:var(--grass2); color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:.85rem; opacity:0; transform:scale(0); transition:.3s cubic-bezier(.34,1.56,.64,1);
+}
+.card-body{
+  display:none; margin-top:14px; padding-top:14px; border-top:2px dashed #eee;
+  font-size:.93rem; color:var(--ink); line-height:1.85; font-weight:600;
+}
+.card.open .card-body{display:block;}
+.card.open{animation:none; transform:none;}
+.card-body ul{margin:8px 0; padding-right:20px;}
+.card-body li{margin-bottom:6px;}
+.card-body .tip{
+  margin-top:10px; background:#FFF7DA; border-radius:14px; padding:10px 12px;
+  font-size:.86rem; border-right:4px solid var(--yellow-dark);
+}
+
+/* color variants by field */
+.f-care .field-icon{background:var(--pink);}
+.f-care .card{border-top:6px solid var(--pink);}
+.f-traits .field-icon{background:var(--blue);}
+.f-traits .card{border-top:6px solid var(--blue);}
+.f-functions .field-icon{background:var(--purple);}
+.f-functions .card{border-top:6px solid var(--purple);}
+.f-aspects .field-icon{background:var(--orange);}
+.f-aspects .card{border-top:6px solid var(--orange);}
+.f-goals .field-icon{background:var(--grass2);}
+.f-goals .card{border-top:6px solid var(--grass2);}
+.f-methods .field-icon{background:var(--yellow-dark);}
+.f-methods .card{border-top:6px solid var(--yellow);}
+.f-parents .field-icon{background:var(--blue-dark);}
+.f-parents .card{border-top:6px solid var(--blue-dark);}
+.f-styles .field-icon{background:var(--pink-dark);}
+.f-styles .card{border-top:6px solid var(--pink-dark);}
+.f-theories .field-icon{background:var(--purple-dark);}
+.f-theories .card{border-top:6px solid var(--purple-dark);}
+.f-family .field-icon{background:var(--orange-dark);}
+.f-family .card{border-top:6px solid var(--orange-dark);}
+.f-interaction .field-icon{background:var(--grass-dark);}
+.f-interaction .card{border-top:6px solid var(--grass2);}
+.f-positive .field-icon{background:var(--yellow-dark);}
+.f-positive .card{border-top:6px solid var(--yellow-dark);}
+.f-democracy .field-icon{background:var(--blue);}
+.f-democracy .card{border-top:6px solid var(--blue);}
+.f-special .field-icon{background:var(--purple);}
+.f-special .card{border-top:6px solid var(--purple);}
+.f-social .field-icon{background:var(--orange);}
+.f-social .card{border-top:6px solid var(--orange);}
+.f-scholars .field-icon{background:var(--grass-dark);}
+.f-scholars .card{border-top:6px solid var(--grass-dark);}
+
+/* ===== Danger Zone (cute monster) ===== */
+.danger-zone{
+  position:relative; z-index:2;
+  max-width:1100px; margin:20px auto 70px; padding:0 20px;
+}
+.danger-box{
+  background: linear-gradient(160deg, #FFE3E3 0%, #FFD2D2 100%);
+  border:5px solid var(--red);
+  border-radius:32px;
+  padding:30px 24px;
+  position:relative;
+  box-shadow: 0 0 0 8px rgba(255,92,92,0.12), var(--shadow-lg);
+}
+.danger-box::before{
+  content:"";
+  position:absolute; inset:-5px; border-radius:32px;
+  background: repeating-linear-gradient(135deg, transparent 0 18px, rgba(255,255,255,0.35) 18px 22px);
+  pointer-events:none;
+}
+.monster-head{
+  width:84px; height:84px; margin:0 auto 10px; position:relative;
+  background: var(--red);
+  border-radius:50% 50% 45% 45%/55% 55% 45% 45%;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: var(--shadow);
+  animation: wiggle 2.6s ease-in-out infinite;
+}
+@keyframes wiggle{
+  0%,100%{transform:rotate(-4deg);}
+  50%{transform:rotate(4deg);}
+}
+.monster-head .eyes{display:flex; gap:14px;}
+.monster-head .eye{
+  width:20px; height:20px; background:#fff; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+}
+.monster-head .eye::after{content:""; width:9px; height:9px; background:var(--ink); border-radius:50%;}
+.monster-head .horn{
+  position:absolute; top:-14px; width:0; height:0;
+  border-left:9px solid transparent; border-right:9px solid transparent; border-bottom:18px solid var(--red-dark);
+  border-radius:4px;
+}
+.monster-head .horn.l{left:14px; transform:rotate(-15deg);}
+.monster-head .horn.r{right:14px; transform:rotate(15deg);}
+.danger-title{
+  text-align:center; font-size:clamp(1.3rem,3.6vw,1.8rem); font-weight:800; color:var(--red-dark);
+  margin:0 0 4px;
+}
+.danger-sub{
+  text-align:center; color:#8E2C2C; font-weight:700; font-size:.95rem; margin:0 0 24px;
+}
+.danger-grid{
+  display:grid; gap:16px; grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+}
+.danger-card{
+  background:#fff; border-radius:20px; padding:16px 18px; border:3px solid var(--red);
+  cursor:pointer; transition:.3s cubic-bezier(.34,1.56,.64,1); position:relative;
+}
+.danger-card:hover, .danger-card:focus-visible{
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: 0 14px 28px rgba(201,46,46,0.28);
+}
+.danger-card-title{
+  font-weight:800; color:var(--red-dark); font-size:1rem; display:flex; align-items:center; gap:8px; margin:0;
+}
+.danger-card-body{
+  display:none; margin-top:10px; font-size:.88rem; color:#5B2222; font-weight:600; line-height:1.8;
+}
+.danger-card.open .danger-card-body{display:block;}
+.danger-card.open{transform:none;}
+.danger-card-body ul{margin:6px 0; padding-right:18px;}
+.danger-card-body li{margin-bottom:5px;}
+
+/* ===== Reward toast / modal ===== */
+.reward-toast{
+  position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(140%);
+  background: linear-gradient(135deg, var(--yellow), var(--orange));
+  color:var(--ink); font-weight:800; font-size:1.05rem;
+  padding:16px 26px; border-radius:var(--r-pill); box-shadow:var(--shadow-lg);
+  border:4px solid #fff;
+  display:flex; align-items:center; gap:10px;
+  z-index:200; transition: transform .55s cubic-bezier(.34,1.56,.64,1);
+  text-align:center; max-width:90vw;
+}
+.reward-toast.show{transform:translateX(-50%) translateY(0);}
+
+.confetti-piece{
+  position:fixed; top:-20px; z-index:300; pointer-events:none; border-radius:3px;
+  animation: fall linear forwards;
+}
+@keyframes fall{
+  to{ transform: translateY(110vh) rotate(540deg); opacity:.9; }
+}
+
+/* ===== Final celebration ===== */
+.finale{
+  position:relative; z-index:2; text-align:center; padding:50px 20px 100px;
+  max-width:700px; margin:0 auto;
+}
+.finale-card{
+  background:var(--white); border-radius:32px; padding:40px 26px; box-shadow:var(--shadow-lg);
+  border:5px dashed var(--grass2);
+}
+.finale h2{font-size:1.8rem; color:var(--grass-dark); margin-top:0;}
+.finale p{color:var(--ink-soft); font-weight:600; font-size:1rem;}
+.trophy{font-size:3.4rem; display:block; margin-bottom:10px; animation:bob 2.4s ease-in-out infinite;}
+
+/* footer note */
+.note-foot{
+  text-align:center; color:var(--ink-soft); font-weight:700; font-size:.85rem; padding-bottom:30px; position:relative; z-index:2;
+}
+
+/* Section nav dots (optional aid) */
+.field-divider{
+  display:flex; align-items:center; justify-content:center; gap:8px; margin: 10px 0 36px;
+  color:var(--grass-dark); font-weight:700; font-size:.85rem;
+}
+.field-divider span{width:40px; height:3px; background:var(--grass2); border-radius:3px; display:inline-block;}
+
+@media (max-width:560px){
+  .topbar{padding:8px 12px;}
+  .hero{padding:40px 14px 60px;}
+  .field{padding:6px 14px 46px;}
+}
+
+[tabindex]:focus-visible, button:focus-visible{
+  outline:3px solid var(--blue-dark);
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+}
+</style>
+</head>
+<body>
+
+<div class="scenery" id="scenery"></div>
+
+<header class="topbar">
+  <div class="logo">🌳 حديقة التربية الأسرية</div>
+  <div class="progress-wrap">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">0%</div>
+  </div>
+  <div class="stars-counter">⭐ <span id="starsCount">0</span> / <span id="starsTotal">0</span></div>
+</header>
+
+<section class="hero">
+  <h1>🎡 مرحباً بك في حديقة التربية الأسرية</h1>
+  <p>كل بطاقة هنا هي بالونة معلومات صغيرة 🎈 اضغط عليها لتفتح وتقرأ، واجمع كل النجوم قبل نهاية الجولة!</p>
+  <div class="balloon-row">
+    <div class="mini-balloon" style="background:var(--pink)">🧠</div>
+    <div class="mini-balloon" style="background:var(--yellow); animation-delay:.3s">❤️</div>
+    <div class="mini-balloon" style="background:var(--blue); animation-delay:.6s">🏠</div>
+    <div class="mini-balloon" style="background:var(--purple); animation-delay:.9s">🌱</div>
+  </div>
+</section>
+
+<main id="mainContent"></main>
+
+<div class="reward-toast" id="rewardToast">🎉 رائع! أنهيت قسماً كاملاً!</div>
+
+<footer class="note-foot">صُممت بكل حب لتجعل المذاكرة نزهة في الحديقة 🌼</footer>
+
+<script>
+/* ============ DATA ============ */
+const sections = [
+{
+  id:'care', cls:'f-care', icon:'❤️', color:'var(--pink)',
+  title:'🌟 أهمية التربية', sub:'لماذا التربية مهمة جداً لنمو الطفل؟',
+  cards:[
+    {emoji:'🧠💪', title:'النمو الشامل للطفل', teaser:'عقلياً، جسمانياً، واجتماعياً...',
+      body:`التربية تسهم في نمو الطفل من كل الجوانب:
+      <ul><li>💡 عقلياً</li><li>🏃‍♂️ جسمانياً</li><li>🤝 اجتماعياً</li></ul>`},
+    {emoji:'🗣️✨', title:'اكتساب اللغة', teaser:'كيف يتعلم الطفل الكلام من حوله؟',
+      body:`التربية تساعد الطفل على اكتساب اللغة وأساليب الكلام من الأشخاص الذين يتعامل معهم في بداية حياته.`}
+  ]
+},
+{
+  id:'traits', cls:'f-traits', icon:'📚', color:'var(--blue)',
+  title:'📚 خصائص التربية', sub:'الصفات التي تجعل التربية عملية فريدة',
+  cards:[
+    {emoji:'🧩', title:'تجميعة الصفات الشاملة', teaser:'إنسانية، مكتسبة، تعاونية...',
+      body:`التربية عملية شاملة ومتعددة الأبعاد، فهي:
+      <ul>
+        <li>👤 إنسانية</li><li>🎓 مكتسبة</li><li>🤝 تعاونية</li>
+        <li>🌍 اجتماعية شاملة</li><li>🌱 مرنة</li><li>♾️ مستمرة</li>
+        <li>🌀 معقدة</li><li>⚖️ مضبوطة</li>
+      </ul>`},
+    {emoji:'🎯', title:'عملية هادفة', teaser:'تهدف لتوجيه الجيل الناشئ',
+      body:`التربية عملية مقصودة تهدف لتوجيه الجيل الناشئ؛ لضمان وصوله لدرجة <b>المواطنة الصالحة</b>، وتحقيق كل ما فيه خير للمجتمع. ✨`},
+    {emoji:'👥', title:'عملية فردية اجتماعية', teaser:'تهتم بالفرد والمجتمع معاً',
+      body:`التربية تهتم بالفرد والمجتمع في آنٍ واحد، وتسعى لتطوير كل منهما بشكل متوازن ومستمر. 📈`}
+  ]
+},
+{
+  id:'functions', cls:'f-functions', icon:'🏛️', color:'var(--purple)',
+  title:'🌟 الوظائف الأساسية للتربية', sub:'منى جاد — لماذا تحتاج المجتمعات للتربية؟',
+  cards:[
+    {emoji:'🏛️', title:'نقل التراث الثقافي', teaser:'الجسر الذي يربط الأجيال', body:`التربية هي الجسر الذي يربط الأجيال ببعضها؛ فكل جيل يستلم التراث من الذي قبله، يضيف عليه، يطوره، ويجدده. هذا ما يجعل ثقافتنا تنمو وتستمر عبر الزمن.`},
+    {emoji:'🤝', title:'ضرورة اجتماعية', teaser:'بقاء المجتمع يعتمد عليها', body:`بقاء المجتمع يعتمد بشكل أساسي على التربية، لأنها هي المسؤولة عن نقل الخبرات والأهداف المشتركة بين الأفراد، مما يضمن بناء علاقات إيجابية واستمرار الحياة الإنسانية وتجددها.`},
+    {emoji:'🌱', title:'عملية تطبيع اجتماعي', teaser:'نقل المعارف والعادات للصغار', body:`التربية هي التي تنقل معارف، عادات، وتقاليد الكبار للصغار، عشان تساعدهم يندمجوا في الحياة الاجتماعية ويتحولوا لأعضاء فاعلين ومؤثرين في مجتمعهم.`},
+    {emoji:'🔄', title:'وسيلة للتكيف الاجتماعي', teaser:'تكسب الطفل مهارات التكيف', body:`بما أن الإنسان يولد بوراثة بيولوجية فقط، التربية تأتي عشان تكسبه المهارات التي تخليه يتكيف مع بيئته. هذا يتم عن طريق تغيير البيئة لتناسب الفرد، أو تطوير الفرد نفسه عشان يتناسب مع البيئة.`},
+    {emoji:'📈', title:'عملية نمو للفرد الإنساني', teaser:'رحلة تطور مستمرة', body:`هي رحلة تطور مستمرة تهدف للوصول بالطفل لأقصى درجات النضج في كل جوانبه (الجسمية، العقلية، والاجتماعية) حتى يصل لمرحلة البلوغ والتكامل.`},
+    {emoji:'🏷️', title:'تعزيز الهوية القومية', teaser:'تشكيل هوية المجتمع', body:`التربية هي التي تشكل الهوية الخاصة للمجتمع؛ فتخلي أفراده يشتركوا في صفات وتقاليد تميزهم عن غيرهم، وفي نفس الوقت تدعم استقلالية كل فرد وشخصيته الفريدة.`}
+  ]
+},
+{
+  id:'aspects', cls:'f-aspects', icon:'🎨', color:'var(--orange)',
+  title:'🌟 جوانب التربية المتعددة', sub:'تسعة جوانب تشكل الطفل الكامل',
+  cards:[
+    {emoji:'🏃‍♀️', title:'التربية الجسمية', teaser:'عادات صحية في المأكل والرياضة',
+      body:`تركز على وعي الطفل باكتساب العادات الصحية في (المأكل، الملبس، والرياضة) للحفاظ على الصحة والوقاية من الأمراض.
+      <div class="tip">💡 أهمية الرياضة البدنية واللعب في السنوات العشر الأولى لتنمية مهارات الملاحظة والتحليل وتقوية العضلات.</div>`},
+    {emoji:'🧠', title:'التربية العقلية', teaser:'نضج العقل وحرية التفكير',
+      body:`تهدف لاكتساب المعارف، نضج العقل، وتوظيف المعلومات في حياتنا لتلبية حاجاتنا وحاجات المجتمع.
+      <div class="tip">💡 التركيز على "تكوين عادة التفكير" وممارسة "حرية التفكير" لتوسيع المدارك.</div>`},
+    {emoji:'🤝', title:'التربية الاجتماعية', teaser:'الذكاء الاجتماعي وبناء العلاقات',
+      body:`تنمية "الذكاء الاجتماعي" والقدرة على بناء علاقات سوية مع الآخرين (رؤساء، أصدقاء، وزملاء).
+      <div class="tip">💡 تعتمد على غرس سلوكيات التعاون، الإيثار، والنظام للاندماج في المجتمع.</div>`},
+    {emoji:'🎨', title:'التربية الجمالية', teaser:'تذوق الجمال وإنتاجه',
+      body:`تنمية قدرة الطفل على ملاحظة الجمال، تذوقه، تقديره، وإنتاجه في كل خبرات الحياة.
+      <div class="tip">💡 تهدف لتنمية "عاطفة الجمال الكامنة" عبر الاستمتاع بالتناسق والحس الجمالي.</div>`},
+    {emoji:'🌍', title:'التربية البيئية', teaser:'احترام الموارد دون إهدار',
+      body:`وعي الفرد بموارد البيئة وكيفية استغلالها الاستغلال الأمثل دون إهدار.
+      <div class="tip">💡 تشمل حماية البيئة المادية والاجتماعية (أرض، زرع، حيوان، ومنشآت) وتعليم الطفل احترامها.</div>`},
+    {emoji:'✨', title:'التربية الخلقية', teaser:'القدوة الحسنة لا التلقين',
+      body:`اكتساب المبادئ والاتجاهات التي توجه سلوك الفرد تجاه نفسه والآخرين، مع مراعاة صالح الجماعة.
+      <div class="tip">💡 تُبنى على "القدوة الحسنة والتدريب" وليس التلقين.</div>`},
+    {emoji:'🕌', title:'التربية الدينية', teaser:'تربية وجدان الطفل',
+      body:`جهاز اجتماعي يعبر عن روح الفلسفة الدينية للفرد، سواء الإسلامية أو المسيحية بالنسبة لمن يعتنقها.
+      <div class="tip">💡 تقوم على أساس "تربية وجدان الطفل"، لأن الوجدان هو أساس تشكيل السلوك وإعطاء الحياة قيمة ومعنى.</div>`},
+    {emoji:'🛡️', title:'التربية الجنسية', teaser:'فهم الذات وإعداد للحياة العائلية',
+      body:`فهم الفرد لطبيعته الجنسية وحاجاته البيولوجية، وإعداده للحياة العائلية في المستقبل.`},
+    {emoji:'✈️', title:'التربية السياحية', teaser:'وعي سياحي محلي وعالمي',
+      body:`الوعي السياحي من خلال اكتساب الخبرات والمعارف المرتبطة بالسياحة محلياً وعالمياً.`}
+  ]
+},
+{
+  id:'goals', cls:'f-goals', icon:'🏠', color:'var(--grass2)',
+  title:'🏠 أهداف التربية الأسرية', sub:'ماذا تريد التربية الأسرية أن تحققه؟',
+  cards:[
+    {emoji:'🗣️💬', title:'توعية الآباء بأدوارهم ولغة الحوار', teaser:'حوار فعّال ومساحة للتعبير',
+      body:`<ul>
+        <li>توعية الآباء والأمهات بالأدوار الأساسية المنوطة بهم تجاه أبنائهم.</li>
+        <li>الالتزام بلغة حوار مناسبة وفعالة في إدارة المناقشات.</li>
+        <li>منح مساحة كافية من الحرية للطفل، المراهق، والشاب للتعبير عن رأيهم، وتشجيعهم على المشاركة كأعضاء فعالين داخل الأسرة.</li>
+      </ul>`},
+    {emoji:'⚖️❤️', title:'الجمع بين احترام الرأي وبر الوالدين', teaser:'توازن بين الحرية والاحترام',
+      body:`<ul>
+        <li>خلق توازن بين احترام حرية رأي الأبناء وشخصيتهم المستقلة.</li>
+        <li>التأكيد على أهمية احترام الكبير وبر الوالدين كقيمة أصيلة تدعو لها كل الشرائع السماوية.</li>
+      </ul>`}
+  ]
+},
+{
+  id:'methods', cls:'f-methods', icon:'🛡️', color:'var(--yellow-dark)',
+  title:'🛡️ أساليب التربية الأسرية', sub:'كيف يربي الآباء أبناءهم بطريقة صحيحة؟',
+  cards:[
+    {emoji:'💡', title:'التربية بالتوجيه', teaser:'القرب والاحتواء بدل الأوامر',
+      body:`<b>المفهوم:</b> يعتمد على التقرب من الأبناء وتوجيههم للطريق الصحيح عبر الحوار لبناء قواعد من الثقة والروابط الوجدانية والاحترام المتبادل.
+      <div class="tip">💡 بدلاً من الأوامر، يُفتح حوار لبناء جسر ثقة، فيتقبل الطفل التوجيه وهو مقتنع ومحب لوالديه.</div>`},
+    {emoji:'👀', title:'التربية بالملاحظة والمتابعة', teaser:'العين اليقظة على تصرفات الطفل',
+      body:`<b>المفهوم:</b> متابعة الأبناء من خلال أقوالهم وأفعالهم ومقارنتها بما تربوا عليه لضمان اتساقها.
+      <div class="tip">💡 الأهل يراقبون تصرفات الطفل في المواقف المختلفة ليتأكدوا من تطبيق القيم المكتسبة، ويتدخلون فوراً للتصحيح عند الحاجة.</div>`},
+    {emoji:'🌟', title:'التربية بالقدوة', teaser:'الأفعال أبلغ من الأقوال',
+      body:`<b>المفهوم:</b> اقتداء الأبناء بالآباء؛ لذا يجب أن يلتزم الآباء بالتصرف بتهذيب وأن يطبقوا ما يقولونه، لأن أفعالهم هي المرجع الأساسي للأبناء.
+      <div class="tip">💡 الطفل مرآة لأهله ويقلد ما يراه، فصلاح أفعال الوالدين هو الطريق الأقصر لصلاح الأبناء.</div>`},
+    {emoji:'⚖️', title:'العقاب (بضوابط تربوية)', teaser:'إصلاح لا انتقام',
+      body:`<b>المفهوم:</b> إظهار الحزم عند الضرورة واستخدام العقاب كجزء من الواجب التربوي، بشرط أن يكون متوازناً وبعيداً تماماً عن التعنيف أو الضرب المبرح.
+      <div class="tip">💡 العقاب هنا "وسيلة إصلاح" لا "انتقام"؛ هدفه وضع حدود للحفاظ على النظام، مع التوازن الدائم بين الود والحزم.</div>`}
+  ],
+  noteBefore:`<div class="tip" style="margin-bottom:22px; max-width:700px;">📌 <b>ملاحظة هامة:</b> الطفل "يولد ضعيفاً من الناحية الاجتماعية والجسمية"، فهو بحاجة دائمة للعناية والتربية لينمو بشكل صحي. 🌱</div>`
+},
+{
+  id:'funcfamily', cls:'f-functions', icon:'📈', color:'var(--purple)',
+  title:'📈 وظائف التربية الأسرية', sub:'الركيزة الأساسية: عملية النمو',
+  cards:[
+    {emoji:'🐣', title:'جوهر العملية التربوية', teaser:'التربية = عملية نمو',
+      body:`التربية في الأساس هي <b>عملية نمو</b>، والسبب الجوهري هو أن الطفل يولد "ضعيفاً" من الناحيتين الاجتماعية والجسمية.`},
+    {emoji:'🏠✨', title:'الخلاصة', teaser:'حاجة مستمرة للعناية',
+      body:`هذا الضعف الفطري يجعل الطفل في حاجة ماسة ومستمرة للعناية والتربية؛ لضمان نموه بشكل صحي وسليم وتأهيله للاندماج في المجتمع.
+      <div class="tip">📌 رغم وجود وظائف أخرى كـ "نقل التراث الثقافي" و"نقل الأنماط السلوكية"، إلا أن "عملية النمو" هي الركيزة الأساسية التي تم التأكيد عليها.</div>`}
+  ]
+},
+{
+  id:'parents', cls:'f-parents', icon:'👨‍👩‍👧', color:'var(--blue-dark)',
+  title:'👨‍👩‍👧 عوامل خاصة بالوالدين', sub:'كيف تؤثر ظروف الوالدين على التربية؟',
+  cards:[
+    {emoji:'⏳', title:'عمر الوالدين', teaser:'الفارق العمري وأثره',
+      body:`الفارق العمري (بين الأبناء والوالدين، أو بين الأبوين أنفسهم) له أثر كبير ومباشر على عملية التربية.
+      <div class="tip">💡 كلما زاد الفارق العمري، أصبح من الصعب تحقيق لغة حوار وانسجام وتفاهم داخل البيت.</div>`},
+    {emoji:'🩺', title:'الوضع الصحي للوالدين', teaser:'المحرك الأساسي لأسلوب التربية',
+      body:`الحالة الصحية (النفسية، الجسمانية، والعقلية) للأهل هي المحرك الأساسي لأسلوبهم في التربية.
+      <div class="tip">💡 على سبيل المثال، قد يميل الوالد الذي يعاني من "إعاقة" إلى استخدام الشدة والقسوة كنوع من تعويض النقص الداخلي الذي يشعر به.</div>`},
+    {emoji:'🎓', title:'المستوى التعليمي للوالدين', teaser:'يحدد نظرة الأهل للحياة',
+      body:`المستوى التعليمي والثقافي يحدد نظرة الأهل للحياة ومستوى طموحهم، وهو ما ينعكس بشكل تلقائي على أسلوب التربية.
+      <div class="tip">💡 الأهل الذين يوفرون بيئة داعمة ويكونون "قدوة حسنة" لأبنائهم، يساهمون بشكل كبير في تأهيلهم للنجاح في حياتهم المستقبلية.</div>`}
+  ]
+},
+{
+  id:'styles', cls:'f-styles', icon:'🏠', color:'var(--pink-dark)',
+  title:'🏠 أنماط التربية الأسرية', sub:'أربعة أنماط، أربع نتائج مختلفة',
+  cards:[
+    {emoji:'🏛️', title:'التربية السلطوية', teaser:'شدة، أوامر، وقلة عطف',
+      body:`<b>📋 الصفات:</b>
+      <ul><li>مساحة ضئيلة جداً للحوار والنقاش</li><li>استخدام دائم للشدة والمبالغة في العقاب</li><li>قلة العطف وعدم التعبير عن المشاعر</li><li>انعدام الثقة في قدرات الطفل</li></ul>
+      <b>📈 الآثار:</b>
+      <ul><li>ضعف الثقة بالنفس</li><li>صعوبات في المهارات الاجتماعية</li><li>صعوبة في التحكم بالذات</li><li>خوف وخجل غير مبرر من الآخرين</li></ul>`},
+    {emoji:'🎈', title:'التربية المتساهلة', teaser:'حرية بلا توجيه',
+      body:`<b>📋 الصفات:</b>
+      <ul><li>غياب القوانين والأنظمة، أو عدم تطبيقها</li><li>تواصل وحوار مفتوح ولكن بدون توجيه</li><li>ترك اتخاذ القرارات بالكامل للأطفال</li></ul>
+      <b>📈 الآثار:</b>
+      <ul><li>ميل للسلوك العنيف ونقص في التعاطف</li><li>اتخاذ قرارات سيئة لغياب المرجعية</li><li>ضعف في إدارة الوقت والتحكم بالعادات</li></ul>`},
+    {emoji:'🌫️', title:'التربية المبتعدة (الإهمال)', teaser:'غياب الحوار والاهتمام',
+      body:`<b>📋 الصفات:</b>
+      <ul><li>غياب نهج واضح للتهذيب</li><li>ندرة التعبير عن المشاعر والابتعاد عن الأبناء</li><li>قلة الحوار وعدم الاكتراث</li></ul>
+      <b>📈 الآثار:</b>
+      <ul><li>ضعف في المستويات الأكاديمية والمهنية والاجتماعية</li><li>زيادة احتمالية التعرض للانحراف</li></ul>`},
+    {emoji:'⚖️', title:'التربية المعتدلة (الحازمة)', teaser:'النمط الأفضل: دفء + حدود',
+      body:`<b>📋 الصفات:</b>
+      <ul><li>نهج ديمقراطي؛ استجابة للطفل وحرص على سماع تساؤلاته</li><li>توفير الدفء، الحب، والدعم الكافي</li></ul>
+      <b>📈 الآثار:</b>
+      <ul><li>تحمل المسؤولية</li><li>إنجاز أكاديمي ومهني متميز</li><li>قدرة عالية على تكوين علاقات اجتماعية ناجحة</li></ul>`}
+  ]
+},
+{
+  id:'theories', cls:'f-theories', icon:'🧠', color:'var(--purple-dark)',
+  title:'🧠 نظريات التربية والتنشئة', sub:'كيف يفسر العلماء سلوك الطفل؟',
+  cards:[
+    {emoji:'💭', title:'نظرية التحليل النفسي', teaser:'الهو، الأنا، والأنا الأعلى',
+      body:`تقوم على أن سلوك الفرد محكوم بـ3 أنظمة داخلية:
+      <ul>
+        <li>🎭 <b>الهو (Id):</b> مصدر الغرائز، لا شعوري، يسعى دائماً لتحقيق "مبدأ اللذة"</li>
+        <li>⚖️ <b>الأنا (Ego):</b> يتكون من احتكاك الطفل بالمجتمع، ووظيفته تحقيق رغبات "الهو" بما يناسب الواقع</li>
+        <li>😇 <b>الأنا الأعلى (Super Ego):</b> يمثل الضمير وأوامر الوالدين، ويعمل كـ "مراقب" للسلوك</li>
+      </ul>
+      <div class="tip">💡 التعلم يحدث من خلال "التوحد" (Identification) مع الوالدين، مما يساعد الطفل على اكتساب معايير المجتمع.</div>`},
+    {emoji:'📚', title:'نظريات التعلم الاجتماعي', teaser:'المثير، الثواب، والتقليد',
+      body:`يتعلم الطفل سلوكياته عبر 3 طرق:
+      <ul>
+        <li>⚡ <b>المثير والاستجابة:</b> يميل لتكرار التصرفات التي تجذب انتباه أهله وترضيهم</li>
+        <li>🎁 <b>الثواب والعقاب:</b> يكرر السلوك "المثاب"، ويتوقف تدريجياً عن غير المدعوم</li>
+        <li>🎭 <b>التقليد والنموذج:</b> يمتص سلوكيات النماذج المحيطة به من خلال الملاحظة</li>
+      </ul>`},
+    {emoji:'🎭', title:'نظرية الدور الاجتماعي', teaser:'المكانة والدور المتوقع',
+      body:`تركز على وعي الطفل بـ"دوره" في المجتمع وما هو متوقع منه:
+      <ul>
+        <li>📍 <b>المكانة الاجتماعية:</b> وضع الفرد في المجتمع، وترتبط بها واجبات وحقوق</li>
+        <li>👤 <b>الدور الاجتماعي:</b> "السلوك المتوقع" من الشخص بناءً على مكانته</li>
+      </ul>
+      <div class="tip">💡 يتعلم الطفل دوره عن طريق التعليم المباشر (توجيه الأهل) أو عن طريق النماذج (مراقبة القدوة).</div>`}
+  ]
+},
+{
+  id:'socialtraits', cls:'f-social', icon:'🌟', color:'var(--orange)',
+  title:'🌟 خصائص التنشئة الاجتماعية', sub:'عملية مستمرة وديناميكية',
+  cards:[
+    {emoji:'♾️', title:'عملية مستمرة', teaser:'لا تتوقف عند سن معين',
+      body:`التنشئة ليست محصورة في مرحلة الطفولة فقط، بل تمتد لتشمل كافة مراحل العمر المختلفة.
+      <div class="tip">💡 الإنسان في حالة تعلم دائم واكتساب خبرات اجتماعية جديدة طوال رحلة حياته.</div>`},
+    {emoji:'🔄', title:'عملية ديناميكية', teaser:'أخذ وعطاء مستمر',
+      body:`هي عملية تفاعلية وتغيرية؛ حيث يأخذ الفرد ويعطي المعايير والأدوار الاجتماعية والاتجاهات النفسية عند تفاعله مع الجماعة.
+      <div class="tip">💡 الشخص لا يستقبل التأثير فقط، بل يتأثر بالبيئة المحيطة ويؤثر فيها أيضاً في تفاعل متبادل.</div>`}
+  ]
+},
+{
+  id:'steps', cls:'f-social', icon:'👣', color:'var(--orange)',
+  title:'👣 خطوات وشروط التنشئة الاجتماعية', sub:'كيف يتعلم الطفل دوره خطوة بخطوة؟',
+  cards:[
+    {emoji:'🔄', title:'خطوات عملية التنشئة', teaser:'5 خطوات من الملاحظة للاستدخال',
+      body:`<ol style="padding-right:20px; margin:0;">
+        <li>👁️ <b>الملاحظة والانتباه:</b> يلاحظ الطفل "النموذج" ويركز في تصرفاته</li>
+        <li>🧠 <b>الاحتفاظ:</b> يخزن ما رآه في ذاكرته ليسترجعه لاحقاً</li>
+        <li>🛠️ <b>إعادة الإنتاج:</b> يبدأ في "تجربة" ممارسة السلوك</li>
+        <li>⚖️ <b>التعديل:</b> يصحح سلوكه بناءً على الملاحظات والتغذية الراجعة</li>
+        <li>🌟 <b>الاستدخال:</b> يصبح السلوك جزءاً أصيلاً من شخصيته ويقوم به تلقائياً</li>
+      </ol>`},
+    {emoji:'🔑', title:'شروط نجاح التنشئة', teaser:'مجتمع، وراثة، وطبيعة إنسانية',
+      body:`<ul>
+        <li>🏛️ <b>المجتمع القائم:</b> وجود مجتمع بنظام وقوانين ومؤسسات (كالأسرة)</li>
+        <li>🧬 <b>الميراث البيولوجي:</b> جهاز عصبي وعقل سليم كمتطلب أساسي للتعلم</li>
+        <li>👥 <b>الطبيعة الإنسانية:</b> قدرات إنسانية فريدة (الكلام، التعامل بالرموز، الشعور بالآخرين)</li>
+      </ul>`},
+    {emoji:'🐣✨', title:'دور الأسرة في التنشئة', teaser:'أولى وكالات التنشئة',
+      body:`تعتبر الأسرة هي أولى وكالات التنشئة الاجتماعية وأكثرها أهمية؛ لأنها أول من يتعهد بالطفل بالرعاية منذ لحظة ولادته.
+      <div class="tip">📌 التربية الأسرية هي مجموعة السلوكيات والقيم والأخلاق التي تمارسها الأسرة في نفوس أبنائها. الأسرة هي النواة الأولى للإنسان، والتربية هي الكفيلة بأن يتعلم الطفل السلوك المعوج أو القويم.</div>`}
+  ]
+},
+{
+  id:'familytypes', cls:'f-family', icon:'🏠', color:'var(--orange-dark)',
+  title:'🏠 أنواع الأسرة', sub:'نواة، ممتدة، أم عائل واحد؟',
+  cards:[
+    {emoji:'👫', title:'الأسرة النواة', teaser:'الأب والأم وأطفالهما',
+      body:`تتكون من الأب والأم وأطفالهما، وهي النمط الأكثر انتشاراً في العديد من المجتمعات.
+      <div class="tip">💡 يترك الأبناء المنزل عند بلوغهم، وعند الزواج يؤسسون أسرة مستقلة بعيدة عن الأسرة الأولى.</div>`},
+    {emoji:'🌳', title:'الأسرة الممتدة', teaser:'أجيال متعددة في مسكن واحد',
+      body:`تضم أجيالاً متعددة تحيا معاً في مسكن واحد، وتتكون من الجدود والأولاد والأحفاد.`},
+    {emoji:'👤', title:'أسرة العائل الواحد', teaser:'تربية تتطلب مجهوداً مضاعفاً',
+      body:`هي الأسرة التي يعولها شخص بالغ واحد فقط (نتيجة وفاة أحد الأبوين، أو الطلاق والانفصال، أو التبني).
+      <div class="tip">💡 هذا النوع في ازدياد مستمر نتيجة ارتفاع نسب الطلاق، وغالباً ما تكون عملية التربية فيها صعبة وتتطلب مجهوداً مضاعفاً.</div>`}
+  ]
+},
+{
+  id:'interaction', cls:'f-interaction', icon:'🤝', color:'var(--grass-dark)',
+  title:'🤝 مستويات التفاعل الاجتماعي في الأسرة', sub:'غير لفظي، عاطفي، وعقلي',
+  cards:[
+    {emoji:'👁️‍🗨️', title:'التفاعل غير اللفظي', teaser:'الأهم تأثيراً في حياة الطفل',
+      body:`هو المستوى الأعظم أهمية وتأثيراً في حياة الطفل وتنشئته.
+      <div class="tip">💡 معظم مشاعر الحب والارتباط بين أفراد الأسرة تتشكل من خلال هذا التفاعل، ويبدأ مبكراً جداً حتى قبل أن يتعلم الطفل الكلام.</div>`},
+    {emoji:'❤️', title:'التفاعل العاطفي', teaser:'رايح وجاي في المشاعر',
+      body:`تبادل وجداني متبادل بين أفراد الأسرة.
+      <div class="tip">💡 هو عبارة عن "رايح وجاي" في المشاعر، وهذا التبادل هو الذي يعزز ويقوي الروابط العاطفية بين الجميع.</div>`},
+    {emoji:'🧠', title:'التفاعل العقلي', teaser:'حوار وتبادل الأفكار',
+      body:`تبادل الأفكار، المعلومات، والحوارات البناءة.
+      <div class="tip">💡 يتم من خلال طرح المواضيع للنقاش وتبادل الآراء والتعليقات، مما يؤسس للغة حوار عقلية داخل البيت.</div>`}
+  ]
+},
+{
+  id:'growth', cls:'f-interaction', icon:'🐣', color:'var(--grass2)',
+  title:'🐣 النمو الاجتماعي والنشأة العقلية', sub:'من الميلاد وحتى سنتين',
+  cards:[
+    {emoji:'👶', title:'النمو الاجتماعي (0 - 2 سنة)', teaser:'الخبرات المبكرة ترسم الاتجاهات',
+      body:`الخبرات الاجتماعية المبكرة هي التي ترسم اتجاهات الطفل نحو نفسه ونحو الآخرين.
+      <div class="tip">💡 التنشئة الاجتماعية ليست "فطرية"، بل هي نتاج للتعلم واكتساب الخبرة.</div>`},
+    {emoji:'🧠', title:'أدوار الأسرة في التنشئة العقلية', teaser:'تغذية، شبع عاطفي، وانضباط',
+      body:`<ul>
+        <li>🍎 <b>التغذية والصحة:</b> الرضاعة الطبيعية والغذاء المتكامل؛ فالعقل السليم ينمو في الجسم السليم</li>
+        <li>❤️ <b>الشبع العاطفي:</b> حنان الأم تعمل كـ"منبهات ذهنية"؛ الأمن النفسي هو التربة الخصبة لنمو الذكاء</li>
+        <li>⏰ <b>النظام والانضباط:</b> تدريب الطفل على تنظيم الوقت، ليتحول "الالتزام" إلى "انضباط ذاتي"</li>
+      </ul>`}
+  ]
+},
+{
+  id:'positive', cls:'f-positive', icon:'🌟', color:'var(--yellow-dark)',
+  title:'🌟 الأساليب الإيجابية في التنشئة', sub:'استجابة، ثواب، وعقاب متدرج',
+  cards:[
+    {emoji:'💬', title:'الاستجابة لأفعال الطفل', teaser:'الاهتمام نفسه مكافأة',
+      body:`هي طبيعة "رد فعل" الوالدين تجاه سلوكيات الطفل.
+      <div class="tip">💡 الاستجابة في حد ذاتها تمثل للطفل "مكافأة". فالطفل يميل لتكرار السلوك الذي يجده يلقى اهتماماً وتفاعلاً من أهله.</div>`},
+    {emoji:'⚖️', title:'الثواب والعقاب', teaser:'مكافأة مادية أم معنوية؟',
+      body:`استجابة الوالدين لسلوك الطفل إما بالتشجيع (مكافأة) أو بالتقويم (عقاب) حسب طبيعة الفعل.
+      <ul>
+        <li>🍬 <b>مكافأة مادية:</b> حلوى، ألعاب، نقود، رحلات</li>
+        <li>✨ <b>مكافأة معنوية:</b> ابتسامة، مديح، معانقة، نظرات رضا، عبارات تشجيع</li>
+      </ul>
+      <div class="tip">⚠️ القاعدة الذهبية: "اثبُت السلوك ذاته، لا الطفل نفسه" — فعندما نقول "أحسنت لأنك رتبت سريرك"، سيعرف الطفل أن هذا الفعل هو ما يستحق التكرار.</div>`},
+    {emoji:'🚫', title:'أساليب العقاب المتدرجة', teaser:'من إظهار عدم الرضا إلى الهجر المؤقت',
+      body:`<ol style="padding-right:20px; margin:0;">
+        <li>😕 إظهار عدم الرضا: تعبير لفظي أو تلميح أو ملامح وجه رافضة</li>
+        <li>🎁 الحرمان: سحب امتيازات مادية أو معنوية يحبها الطفل</li>
+        <li>🧹 إصلاح ما أفسده: إلزامه بتنظيف أو إصلاح ما كسره</li>
+        <li>🙈 التجاهل: فعّال للسلوكيات البسيطة أو التي تحدث لأول مرة</li>
+        <li>🪑 الحجز المؤقت: الجلوس في "ركن هادئ" لفترة قصيرة</li>
+        <li>🔇 الهجر والمقاطعة: التوقف عن الحديث لفترة زمنية محددة</li>
+      </ol>`},
+    {emoji:'🌟', title:'أنواع التعزيز', teaser:'اجتماعي، نشاطي، مادي، وجماعي',
+      body:`<ol style="padding-right:20px; margin:0;">
+        <li>🗣️ معززات اجتماعية: تشجيع لفظي (أحسنت) أو غير لفظي (ابتسامة)</li>
+        <li>🎨 معززات نشاطية: ممارسة نشاط يحبه الطفل بعد السلوك المرغوب</li>
+        <li>🧸 معززات مادية: أشياء ملموسة كالألعاب والبالونات</li>
+        <li>🍎 معززات غذائية: مفيدة للأطفال الصغار جداً، بشرط الصحة</li>
+        <li>👥 معززات جماعية: تعزيز الفريق ككل لتشجيع المسؤولية الجماعية</li>
+        <li>🤝 معززات الأقران: تشجيع الأطفال على دعم بعضهم</li>
+      </ol>`}
+  ]
+},
+{
+  id:'democracy', cls:'f-democracy', icon:'🗳️', color:'var(--blue)',
+  title:'🗳️ مبادئ التربية الديمقراطية', sub:'حرية، شورى، حوار، ومسؤولية',
+  cards:[
+    {emoji:'🕊️', title:'مبدأ الحرية', teaser:'المبتدأ والخبر في التربية الديمقراطية',
+      body:`يشمل الحرية النفسية، الجسدية، والعقلية للطفل.
+      <div class="tip">💡 إتاحة مساحة للطفل للتعبير عن أفكاره ومشاعره، وعدم إجباره على تبني آراء غير مقتنع بها، مع منح حرية الاختيار في أموره الشخصية.</div>`},
+    {emoji:'💬', title:'مبدأ الشورى', teaser:'استشارة الطفل في شؤون الأسرة',
+      body:`استشارة الطفل فيما يناسب عمره من شؤون المنزل والأسرة.
+      <div class="tip">💡 إشراك الطفل في القرارات المنزلية يكسبه مهارة التفكير وحل المشكلات، ويحوله من "متلقٍ للأوامر" إلى "مشارك فعال".</div>`},
+    {emoji:'🗣️', title:'مبدأ الحوار', teaser:'حرية النقد دون خوف',
+      body:`منطلق التواصل التربوي، ويقوم على حرية النقد وإبداء الرأي بعيداً عن الخوف أو الخجل.
+      <div class="tip">💡 فتح مساحة آمنة للطفل لطرح أسئلته ونقد الأفكار دون خوف، يساهم في نموه النفسي والعقلي السليم.</div>`},
+    {emoji:'🛡️', title:'مبدأ المسؤولية', teaser:'ليست فوضى، بل تعلّم',
+      body:`منح كل فرد إحساساً عميقاً بمسؤولياته الخاصة.
+      <div class="tip">💡 التربية الديمقراطية ليست "فوضى"، بل تعلم الطفل أنه مسؤول عن أفعاله؛ مما ينمي ثقته بنفسه واعتماده على ذاته مستقبلاً.</div>`}
+  ]
+},
+{
+  id:'special', cls:'f-special', icon:'🧩', color:'var(--purple)',
+  title:'🧩 مراحل تكيف أسرة طفل ذوي الاحتياجات الخاصة', sub:'من الصدمة إلى التكيف',
+  cards:[
+    {emoji:'⚡', title:'مرحلة الصدمة', teaser:'أول رد فعل عند الاكتشاف', body:`هي المرحلة الأولى التي تلي لحظة اكتشاف الإعاقة أو حدوثها مباشرة.`},
+    {emoji:'🛡️', title:'مرحلة الإنكار', teaser:'تخفيف الألم النفسي مؤقتاً', body:`رد فعل دفاعي؛ تقوم فيه الأسرة بتقليل درجة الإعاقة أو نكرانها تماماً.
+      <div class="tip">💡 وسيلة لتخفيف الألم النفسي وتحقيق الراحة الذاتية المؤقتة.</div>`},
+    {emoji:'💧', title:'مرحلة الحزن والأسى', teaser:'شعور عميق بالحزن', body:`الشعور العميق بالحزن والأسى على الطفل وما يمر به.`},
+    {emoji:'😠', title:'مرحلة الغضب وإلقاء اللوم', teaser:'توجيه الغضب نحو الآخرين', body:`توجيه الغضب والاتهامات من الوالدين نحو الآخرين، مثل الطبيب المعالج أو المعلم الخبير.`}
+  ],
+  noteAfter:`<div class="tip" style="margin-top:18px; max-width:700px;">💡 <b>ملاحظة هامة:</b> هذه المراحل طبيعية ومتوقعة؛ والهدف النهائي هو الوصول إلى <b>"مرحلة التكيف"</b>، وهي مرحلة قبول الوضع الجديد والتعايش معه بشكل سوي وفاعل.</div>`
+},
+{
+  id:'factors', cls:'f-social', icon:'🌍', color:'var(--orange)',
+  title:'🌍 العوامل المؤثرة في التنشئة الاجتماعية', sub:'13 عاملاً يشكلون شخصية الطفل',
+  cards:[
+    {emoji:'🏛️', title:'الثقافة الاجتماعية السائدة', teaser:'نوع من الضبط الاجتماعي', body:`تمثل نوعاً من "الضبط الاجتماعي". الطفل يكتسب العادات والتقاليد والقيم السائدة في بيئته، وسلوكه ما هو إلا تعبير عن هذه التيارات الثقافية.`},
+    {emoji:'💼', title:'خروج المرأة للعمل', teaser:'تحدٍ في المساحة والحركة', body:`تخرج المرأة لتأكيد ذاتها والحفاظ على مستوى معيشي مناسب.
+      <div class="tip">💡 خروجها في المدن يمثل تحدياً مع وجود أطفال في سن الحضانة؛ شقق ضيقة وأثاث يعيق الحركة، وغالباً يُقابل حبه للاكتشاف بالرفض.</div>`},
+    {emoji:'🧹', title:'شدة وطأة الأعمال المنزلية', teaser:'استنزاف طاقة الأم', body:`يقع على عاتق الأم الكثير من المهام خاصة إذا كانت تعمل خارج المنزل.
+      <div class="tip">💡 يصعب بعد ذلك أن تمتلك الأم الطاقة والحيوية لتشبع احتياجات أطفالها العاطفية والتربوية بشكل مُرضٍ.</div>`},
+    {emoji:'🏚️', title:'سوء الأحوال السكنية', teaser:'ازدحام وضوضاء وتوتر', body:`البيئة المزدحمة والضوضاء وضيق المساحة تجعل الجميع في حالة توتر وقلق دائم، وقد يضطر الجميع للنوم في غرفة واحدة، مما يعرض الأطفال لخبرات تؤذي نفوسهم.`},
+    {emoji:'📉', title:'الفقر وسوء التغذية', teaser:'يضعف المناعة والصحة', body:`عدم القدرة على توفير الغذاء الصحي المتكامل يؤثر على صحة الطفل (الجسمية والنفسية والعقلية) ويجعله عرضة للأمراض وضعف المناعة طوال حياته.`},
+    {emoji:'🚫', title:'عدم وعي الأمهات بالتربية السليمة', teaser:'جهل يقود لأخطاء مدمرة', body:`جهل الأهل بخصائص نمو الطفل وأساليب التربية الصحيحة يوقعهم في أخطاء تربوية مدمرة تؤثر على التوافق الاجتماعي للطفل.`},
+    {emoji:'👤', title:'طبيعة القدوة (النموذج)', teaser:'الأفعال أقوى من الكلام', body:`الطفل يتأثر بما يراه من أفعال أكثر مما يقال له. إذا طلب الآباء أشياء تتناقض مع أفعالهم، فهذا "عرقلة" لاكتساب السلوك وينشأ الطفل في حالة تناقض.`},
+    {emoji:'❤️', title:'ديناميكية العلاقات الأسرية', teaser:'الانسجام يبني ذاتاً إيجابية', body:`الانسجام بين الوالدين واتفاقهما على أساليب التنشئة يبني "ذاتاً إيجابية" لدى الطفل، بينما الخلافات الأسرية تنقل له شعوراً دائماً بعدم الأمان.`},
+    {emoji:'💰', title:'المستوى الاقتصادي والاجتماعي', teaser:'يختلف أسلوب المعاملة', body:`الأمهات الأكثر تعليماً يملن للدفء والقبول والتفاهم، بينما قد تزداد حدة العقاب في الطبقات الدنيا نتيجة ضغوط الحياة.`},
+    {emoji:'👨‍👩‍👧‍👦', title:'حجم الأسرة', teaser:'كلما زاد العدد زاد التعقيد', body:`كلما زاد عدد أفراد الأسرة أصبحت التفاعلات أكثر تعقيداً، وتضطر الأسرة لوضع "نظم صارمة وضوابط" حتى لا تسود الفوضى.`},
+    {emoji:'🐣', title:'عدم استعداد الوالدين لطفل جديد', teaser:'تذبذب في مشاعر الحب والضغط', body:`عدم الجاهزية لتحمل المسؤولية أو ضغوط الحياة والطموح الشخصي يجعل تضارب مشاعر الوالدين بين الحب والضغوط ينعكس على الطفل، فتضعف عملية "التوحد" لديه وتتذبذب.`},
+    {emoji:'🎓', title:'المستوى التعليمي والثقافي للأسرة', teaser:'الثقافة تنتج أبناء محبين للعلم', body:`الأسرة المثقفة تنتج أبناءً محبين للعلم، على عكس الأسر غير المتعلمة التي تؤثر بشكل مباشر وسلبي على الأبناء.`},
+    {emoji:'👶', title:'ترتيب الطفل في الأسرة', teaser:'وحيد، أكبر، أوسط، أم أصغر؟',
+      body:`<ul>
+        <li>🧸 <b>الطفل الوحيد:</b> حماية زائدة وتدليل (يقلل خبرته في التعامل مع الآخرين)</li>
+        <li>🥇 <b>الطفل الأكبر (البكر):</b> "طفل التجارب"، صاحب أعلى طموح ومسؤولية</li>
+        <li>🥈 <b>أواسط الأطفال:</b> شعور بالضياع في الوسط، منافسة الكبير وخوف من سحب الصغير للاهتمام</li>
+        <li>🥉 <b>الطفل الأخير:</b> تفوق اجتماعي وراحة في التعامل وتدليل من الوالدين</li>
+      </ul>`}
+  ]
+},
+{
+  id:'scholars', cls:'f-scholars', icon:'🎓', color:'var(--grass-dark)',
+  title:'🎓 مبادئ العلماء الثلاثة في التربية', sub:'أرسطو، جون لوك، وجون جاك روسو',
+  cards:[
+    {emoji:'🏛️', title:'أرسطو', teaser:'السعادة عبر الأعمال النبيلة',
+      body:`<ul>
+        <li>🎯 <b>الغرض من التربية:</b> تمكين الفرد من أداء الأعمال المفيدة والنبيلة في الحرب والسلم، وصولاً إلى "السعادة"</li>
+        <li>💪 <b>التربية الجسمية:</b> تبدأ قبل الولادة، مع تدخل الحكومة في شؤون الزواج لضمان إنجاب أطفال أصحاء</li>
+        <li>🧠 <b>العقلية والجمالية:</b> استخدام الألعاب كتدريب عقلي، واعتبار التربية الجمالية وسيلة للفضيلة والطهارة الروحية</li>
+      </ul>`},
+    {emoji:'✍️', title:'جون لوك', teaser:'العقل السليم في الجسم السليم',
+      body:`<ul>
+        <li>🎯 <b>أغراض التربية:</b> جسمية لتقوية البنية، عقلية لتزويد الفرد بالمعرفة، خلقية لغرس الفضيلة</li>
+        <li>💪 <b>الجسمية:</b> مبدأ "العقل السليم في الجسم السليم"؛ الهواء الطلق، الرياضة، والنظافة هم الأساس</li>
+        <li>🧠 <b>العقلية:</b> تنمية "عادة التفكير" وحرية التفكير، واستخدام الرحلات وسيلة للاستكشاف</li>
+        <li>😇 <b>الخلقية:</b> التركيز على "التعود" لضبط الغرائز والابتعاد عن الوعظ المباشر</li>
+      </ul>`},
+    {emoji:'🌿', title:'جون جاك روسو', teaser:'المذهب الطبيعي ومحورية الطفل',
+      body:`<b>المذهب الطبيعي:</b> الفرد هو محور التربية، والتربية القويمة هي التي تمنح الطفل الحرية التامة.
+      <p>🌳 <b>مصادر التربية:</b> الطبيعة، الإنسان، والأشياء</p>
+      <p>💪 <b>الجسمية:</b> القوة البدنية تقلل من "أوامر" الجسم للطفل وتجعله أكثر طاعة، فالضعف سبب سوء الخلق</p>
+      <b>✨ مبادئ التربية الطبيعية:</b>
+      <ul>
+        <li>براءة الطفل: الطبيعة خيرة والفساد مصدره المجتمع</li>
+        <li>الحرية: ترك الطفل يتدبر أمره ويكتشف الحقائق بنفسه</li>
+        <li>التربية السلبية: الابتعاد عن الدروس اللفظية، التجربة هي المعلم</li>
+        <li>محورية الطفل: احتياجاته وميوله هي مركز العملية التربوية</li>
+      </ul>`}
+  ]
+}
+];
+
+const dangerCards = [
+  {emoji:'🏛️😨', title:'خطر التربية السلطوية', body:`الشدة الزائدة والمبالغة في العقاب وانعدام الثقة في الطفل تؤدي إلى ضعف ثقته بنفسه وخوفه من الآخرين. <b>احذر الخلط بين "الحزم" و"القسوة"!</b>`},
+  {emoji:'🎈⚠️', title:'خطر التربية المتساهلة', body:`غياب القوانين تماماً ليس "حرية" بل "إهمال مقنّع"؛ يؤدي لميل نحو العنف وضعف في إدارة الوقت والعادات.`},
+  {emoji:'🌫️💔', title:'خطر الإهمال', body:`ندرة التعبير عن المشاعر وقلة الحوار من أخطر أساليب التربية؛ تزيد من احتمالية الانحراف وضعف المستوى الأكاديمي.`},
+  {emoji:'⚖️🚫', title:'القاعدة الذهبية في الثواب', body:`أكثر نقطة يقع فيها الطلاب بالخلط: <b>"اثبُت السلوك ذاته، لا الطفل نفسه"</b>. قل "أحسنت لأنك رتبت سريرك" لا "أنت طفل مثالي" — المدح للفعل، لا للهوية.`},
+  {emoji:'🎭❌', title:'لا تخلطي بين العقاب والانتقام', body:`العقاب التربوي هدفه "الإصلاح" ووضع حدود، وليس "الانتقام". أي عقاب يتضمن تعنيفاً أو ضرباً مبرحاً يخرج عن الضوابط التربوية تماماً.`},
+  {emoji:'🤔💭', title:'لا تخلطي بين النظريات الثلاث', body:`التحليل النفسي (الهو/الأنا/الأنا الأعلى) ≠ التعلم الاجتماعي (مثير/استجابة، ثواب/عقاب، تقليد) ≠ نظرية الدور (مكانة/دور). كل نظرية لها مصطلحاتها الخاصة فقط — لا تخلطي بينها في الامتحان!`},
+  {emoji:'👶⚡', title:'لا تخلطي بين ترتيب الأطفال', body:`الوحيد = حماية زائدة، البكر = طفل التجارب وأعلى طموح، الأوسط = شعور بالضياع، الأخير = تفوق اجتماعي ودلع. كل ترتيب له أثر مختلف تماماً!`},
+  {emoji:'🎓📌', title:'لا تخلطي بين العلماء الثلاثة', body:`أرسطو = السعادة والأعمال النبيلة، جون لوك = العقل السليم في الجسم السليم والتعود، روسو = المذهب الطبيعي ومحورية الطفل والتربية السلبية. كل عالم له مصطلح مفتاحي مختلف.`}
+];
+
+/* ============ RENDER ============ */
+const mainEl = document.getElementById('mainContent');
+let totalCards = 0;
+let doneCards = new Set();
+
+function cardHTML(card, idx, sIdx){
+  const cid = `s${sIdx}-c${idx}`;
+  return `
+  <div class="card" tabindex="0" role="button" aria-expanded="false" data-cid="${cid}" onclick="toggleCard(this,'${cid}','${sIdx}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+    <div class="card-check">✓</div>
+    <span class="card-emoji">${card.emoji}</span>
+    <h4 class="card-title">${card.title}</h4>
+    <p class="card-teaser">${card.teaser}</p>
+    <div class="card-body">${card.body}</div>
+  </div>`;
+}
+
+function fieldHTML(section, sIdx){
+  totalCards += section.cards.length;
+  const cardsHtml = section.cards.map((c,i)=>cardHTML(c,i,sIdx)).join('');
+  return `
+  <section class="field ${section.cls}" id="field-${section.id}">
+    <div class="field-header">
+      <div class="field-icon" style="background:${section.color}">${section.icon}</div>
+      <div>
+        <div class="field-title">${section.title}</div>
+        <div class="field-sub">${section.sub}</div>
+      </div>
+    </div>
+    ${section.noteBefore || ''}
+    <div class="grid">${cardsHtml}</div>
+    ${section.noteAfter || ''}
+  </section>
+  <div class="field-divider"><span></span> 🌼 <span></span></div>
+  `;
+}
+
+mainEl.innerHTML = sections.map((s,i)=>fieldHTML(s,i)).join('') + dangerZoneHTML() + finaleHTML();
+document.getElementById('starsTotal').textContent = totalCards;
+
+function dangerZoneHTML(){
+  const cards = dangerCards.map((d,i)=>`
+    <div class="danger-card" tabindex="0" role="button" aria-expanded="false" onclick="toggleDanger(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+      <p class="danger-card-title">${d.emoji} ${d.title}</p>
+      <div class="danger-card-body">${d.body}</div>
+    </div>`).join('');
+  return `
+  <section class="danger-zone">
+    <div class="danger-box">
+      <div class="monster-head">
+        <div class="horn l"></div><div class="horn r"></div>
+        <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+      </div>
+      <h2 class="danger-title">⚠️ منطقة الوحش اللطيف ⚠️</h2>
+      <p class="danger-sub">هنا تختبئ "التريكات" والأخطاء الشائعة... افتحي كل صندوق بحذر وحفظيه جيداً!</p>
+      <div class="danger-grid">${cards}</div>
+    </div>
+  </section>`;
+}
+
+function finaleHTML(){
+  return `
+  <section class="finale" id="finaleSection" style="display:none;">
+    <div class="finale-card">
+      <span class="trophy">🏆</span>
+      <h2>أحسنتِ! أنهيتِ نزهة الحديقة بالكامل 🌳</h2>
+      <p>جمعتِ كل النجوم وقرأتِ كل بطاقة. أنتِ جاهزة الآن لتذاكري بثقة! 💪✨</p>
+    </div>
+  </section>`;
+}
+
+/* ============ INTERACTIONS ============ */
+function updateProgress(){
+  const fill = document.getElementById('progressFill');
+  const label = document.getElementById('progressLabel');
+  const starsCount = document.getElementById('starsCount');
+  const pct = totalCards ? Math.round((doneCards.size/totalCards)*100) : 0;
+  fill.style.width = pct + '%';
+  label.textContent = pct + '%';
+  starsCount.textContent = doneCards.size;
+
+  if(pct === 100){
+    document.getElementById('finaleSection').style.display = 'block';
+    burstConfetti();
+  }
+}
+
+function toggleCard(el, cid, sIdx){
+  const wasOpen = el.classList.contains('open');
+  el.classList.toggle('open');
+  el.setAttribute('aria-expanded', String(!wasOpen));
+  if(!wasOpen){
+    if(!doneCards.has(cid)){
+      doneCards.add(cid);
+      el.classList.add('done');
+      updateProgress();
+      checkSectionComplete(sIdx);
+    }
+  }
+}
+
+function checkSectionComplete(sIdx){
+  const section = sections[sIdx];
+  const allDone = section.cards.every((c,i)=>doneCards.has(`s${sIdx}-c${i}`));
+  if(allDone){
+    const cleanTitle = section.title.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '').trim();
+    showReward(`🎉 رائع! أنهيتِ قسم "${cleanTitle}" بالكامل!`);
+  }
+}
+
+function toggleDanger(el){
+  const wasOpen = el.classList.contains('open');
+  el.classList.toggle('open');
+  el.setAttribute('aria-expanded', String(!wasOpen));
+}
+
+let toastTimer;
+function showReward(msg){
+  const toast = document.getElementById('rewardToast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove('show'), 3200);
+  burstConfetti(18);
+}
+
+function burstConfetti(n=40){
+  const colors = ['#FF6FA5','#FFCB3B','#5FC2F0','#A78BFA','#FF9A52','#4FAF52'];
+  for(let i=0;i<n;i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const size = 6 + Math.random()*6;
+    piece.style.width = size+'px';
+    piece.style.height = (size*1.4)+'px';
+    piece.style.left = Math.random()*100 + 'vw';
+    piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.animationDuration = (2 + Math.random()*1.6)+'s';
+    document.body.appendChild(piece);
+    setTimeout(()=>piece.remove(), 4000);
+  }
+}
+
+/* ============ SCENERY: clouds ============ */
+(function buildScenery(){
+  const scenery = document.getElementById('scenery');
+  scenery.innerHTML = '<div class="sun"></div>';
+  const cloudSVG = (w,h,opacity)=>`
+    <svg width="${w}" height="${h}" viewBox="0 0 200 100" style="opacity:${opacity}">
+      <ellipse cx="60" cy="60" rx="50" ry="32" fill="#fff"/>
+      <ellipse cx="110" cy="48" rx="42" ry="30" fill="#fff"/>
+      <ellipse cx="150" cy="62" rx="38" ry="26" fill="#fff"/>
+      <ellipse cx="90" cy="72" rx="60" ry="24" fill="#fff"/>
+    </svg>`;
+  const positions = [
+    {top:'8%', dur:'55s', delay:'0s', w:160, h:80, op:0.95},
+    {top:'18%', dur:'70s', delay:'-20s', w:120, h:60, op:0.85},
+    {top:'4%', dur:'85s', delay:'-50s', w:200, h:100, op:0.8},
+    {top:'26%', dur:'62s', delay:'-10s', w:100, h:50, op:0.9}
+  ];
+  positions.forEach(p=>{
+    const div = document.createElement('div');
+    div.className = 'cloud';
+    div.style.top = p.top;
+    div.style.animationDuration = p.dur;
+    div.style.animationDelay = p.delay;
+    div.innerHTML = cloudSVG(p.w,p.h,p.op);
+    scenery.appendChild(div);
+  });
+})();
+</script>
+</body>
+</html>
